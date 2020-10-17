@@ -24,9 +24,6 @@
 | For any formatting errors, render login page and show message |    R1.9.1    | Checks when the a formatting error is called the message is displayed                  |
 | If email/password are correct, redirect to /                  |    R1.10.1   | Checking with a test proper email/password the redirect occurs                         |
 | Otherwise, redict to /login and show message                  |    R1.11.1   | Test when the formatting is correct but no match occurs the redirect and message occur |
-
-| Specification                                                 | Test Case ID | Purpose                                                                                |
-|---------------------------------------------------------------|:------------:|----------------------------------------------------------------------------------------|
 |Valid ticket input is accepted by the /sell Post|R4|Test to ensure a correct ticket only name is accepted|
 |The name of the ticket has to be alphanumeric-only|R4.1.1|Test that a name containing special characters is regected|
 |The name of the ticket cannot have spaces as the first or last character|R4.1.2|Check that a name with spaces as the first character is not allowed|

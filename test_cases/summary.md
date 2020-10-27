@@ -46,6 +46,18 @@
 | For any formatting errors, redirect back to /login and show message '{} format is incorrect.'.format(the_corresponding_attribute) | R2.9 | Test for an error message when user enters information with formatting errors |
 | If the email already exists, show message 'this email has been ALREADY used' | R2.10 | Test for an error message when user enters an email that already exists |
 | If no error regarding the inputs following the rules above, create a new user, set the balance to 5000, and go back to the /login page | R2.11 | Check that the user is created successfully |
+| If the user is not logged in, redirect to login page |R3.1| Tests that if the user has not logged in yet any attempted to go to the homepage will be redirected to the login page|
+| This page shows a header 'Hi {}'.format(user.name) |R3.2| Tests that after the user has logged in the h2 header says "Hi" and the user's name|
+|This page shows user balance|R3.3| Tests that after the user has logged in their the account balance is shown on the homepage|
+|This page shows a logout link, pointing to /logout|R3.4| Tests that after the user has logged in there is a logout link on the homepage, that logs the user out and ends their session|
+|This page lists all available tickets. Information including the quantity of each ticket, the owner's email, and the price, for tickets that are not expired.|R3.5| Tests that after the user has logged in the page has all the tickets listed and can be clicked on to show with thier information|
+|This page contains a form that a user can submit new tickets for sell. Fields: name, quantity, price, expiration date|R3.6| Tests that after the user has logged in they are able to see a form to sell tickets with a name, quantity, price and expiration date|
+be clicked on to show with thier information|
+|This page contains a form that a user can buy new tickets. Fields: name, quantity|R3.7| Tests that after the user has logged in they are able to see a form to buy tickets with a name, quantity|
+|This page contains a form that a user can update existing tickets. Fields: name, quantity, price, expiration date|R3.8| Tests that after the user has logged in they are able to see a form to update tickets with a name, quantity, price, expiration date|
+|The ticket-selling form can be posted to /sell|R3.9| Tests that after the user has logged in they are able to fill out the sell form and successfully create a ticket|
+|The ticket-buying form can be posted to /buy|R3.10| Tests that after the user has logged in they are able to fill out the buy form and successfully buy a ticket|
+|	The ticket-update form can be posted to /update|R3.11| Tests that after the user has logged in they are able to fill out the update form and successfully update a existing ticket|
 |Valid ticket input is accepted by the /sell Post|R4.0|Test to ensure a correct ticket only name is accepted|
 |The name of the ticket has to be alphanumeric-only|R4.1.1|Test that a name containing special characters is regected|
 |The name of the ticket cannot have spaces as the first or last character|R4.1.2|Check that a name with spaces as the first character is not allowed|
@@ -77,6 +89,20 @@
 | Date must be given in the format YYYYMMDD (e.g. 20200901) | R5.5.2 | Test for error message when ticket date is not of length 8 |
 | The ticket of the given name must exist | R5.6 | Test for error message when ticket does not exist |
 | For any errors, redirect back to / and show an error message | R5.7 | Test for error message when ticket information is not of the correct format |
+|Succesful buy | R6 | Test that the buy form successfully purchases a ticket|
+|The name of the ticket has to be alphanumeric-only| R6.1.1 | Test for error message when the ticket contains non-alphanumberic characters|
+|The name of the ticket has space allowed only if it is not the first or the last character| R6.1.2 | Test for error message when the ticket contains spaces that are not the first and last character|
+|The name of the ticket is no longer than 60 characters| R6.2 | Test for error message when the name of the ticket contains more then 60 characters by entering 61 characters|
+|The quantity of the tickets has to be more than 0, and less than or equal to 100| R6.3.1 | Test for error message when the quantity of the tickets is a negative number|
+|The quantity of the tickets has to be more than 0, and less than or equal to 100| R6.3.2 | Test for error message when the quantity of the tickets is 0|
+|The quantity of the tickets has to be more than 0, and less than or equal to 100| R6.3.3 | Test for error message when the quantity of the tickets is greater than 100|
+|The ticket name exists in the database and the quantity is more than the quantity requested to buy| R6.4.1 | Test for error message when the entered ticket name does not exist in database|
+|The ticket name exists in the database and the quantity is more than the quantity requested to buy| R6.4.2 | Test for error message when the entered quantity is less then the avalible quantity of the ticket|
+|The user has more balance than the ticket price * quantity + service fee (35%) + tax (5%)| R6.5 | Test for error message when the user attempting to buy a ticket does not have sufficent funds in thier balance|
+|Logout will invalid the current session and redirect to the login page. After logout, the user shouldn't be able to access restricted pages| R7 | Test for when the user logs out, they are taken back to the login in page, and can not access the buy, sell, and update forms and homepage |
+|For any other requests except the ones above, the system should return a 404 error| R9 | Test for if the user attempts to go to any page that does not exist, they are shown a 404 error message|
+
+
 
 ### Questions
 
@@ -87,8 +113,8 @@
    - R4.md: Documentation for requirement R4, written by Josh Medves
    - R5.md: Documentation for requirement R5, written by Mary Whetham
    - R6.md: Documentation for requirement R6, written by Graeme Badley
-   - R7.md: Documentation for requirement R7, written by Gramem Badley
-   - R8.md: Documentation for requirement R8, written by Gramem Badley
+   - R7.md: Documentation for requirement R7, written by Graeme Badley
+   - R8.md: Documentation for requirement R8, written by Graeme Badley
    - summary.md: Includes table that summarizes the created test cases
-2. GitHub actions runs the test code when pushing 
+2. The chosen testing framework test the frontend by completing the actions of a so called test user on the website. Actions could be clicking a button to entering data. The framework does this by setting up a python environment and running a python program with all of the actions that are wanted to be tested. Using Github actions, these tests will be done after every push command done on the repo.  
 3. We will create a test case code file for each requirement set which will all be stored in a single frontend test case code folder. 

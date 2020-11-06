@@ -22,6 +22,13 @@ class User(db.Model):
     password = db.Column(db.String(100))
     name = db.Column(db.String(1000))
 
+class Account_Balance(db.Model):
+    """
+    A account balance model which defines the sql table
+    """
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(100), unique=True)
+    balance = db.Column(db.Float)
 
 # it creates all the SQL tables if they do not exist
 with app.app_context():

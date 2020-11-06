@@ -1,6 +1,7 @@
 from flask import render_template, request, session, redirect
 from qa327 import app
 import qa327.backend as bn
+import re
 
 """
 This file defines the front-end part of the service.
@@ -49,6 +50,9 @@ def register_post():
 
 @app.route('/login', methods=['GET'])
 def login_get():
+    # If user is already logged in, redirect to home page
+    if 'logged_in' in session:
+        return redirect('/')
     return render_template('login.html', message='Please login')
 
 
@@ -56,7 +60,26 @@ def login_get():
 def login_post():
     email = request.form.get('email')
     password = request.form.get('password')
-    user = bn.login_user(email, password)
+    user = None
+    error_message = None
+
+    # Preform password checks
+    # Password must be greater than length 5
+    if len(password) < 6:
+        error_message = "Password format incorrect: Must be greater than 5 characters"
+    # Password must contain a special character
+    elif not re.search("[\"'!@#$%^&*()-+?_=,<>/'\"]+", password):
+        error_message = "Password format incorrect: Must contain a special character"
+    # Password must contain a capital letter
+    elif not re.search("[A-Z]+", password):
+        error_message = "Password format incorrect: Must contain an uppercase character"
+    # Password must contain a lower case letter
+    elif not re.search("[a-z]+", password):
+        error_message = "Password format incorrect: Must contain a lowercase character"
+    # Once the conditions are correct get the user
+    else:
+        user = bn.login_user(email, password)
+
     if user:
         session['logged_in'] = user.email
         """
@@ -73,7 +96,10 @@ def login_post():
         # code 303 is to force a 'GET' request
         return redirect('/', code=303)
     else:
-        return render_template('login.html', message='login failed')
+        if error_message:
+            return render_template('login.html', message=error_message)
+        else:
+            return render_template('login.html', message='email/password combination incorrect')
 
 
 @app.route('/logout')

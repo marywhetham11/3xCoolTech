@@ -1,6 +1,7 @@
 from flask import render_template, request, session, redirect
 from qa327 import app
 import qa327.backend as bn
+import re
 
 """
 This file defines the front-end part of the service.
@@ -12,6 +13,9 @@ The html templates are stored in the 'templates' folder.
 
 @app.route('/register', methods=['GET'])
 def register_get():
+    # direct to home page if the user is logged in
+    if 'logged_in' in session:
+        return redirect('/')
     # templates are stored in the templates folder
     return render_template('register.html', message='')
 
@@ -24,21 +28,70 @@ def register_post():
     password2 = request.form.get('password2')
     error_message = None
 
-
-    if password != password2:
-        error_message = "The passwords do not match"
-
-    elif len(email) < 1:
-        error_message = "Email format error"
-
+    # ALL POSSIBLE ERRORS
+    # email is empty
+    if len(email) < 1:
+        error_message = "Email format is incorrect: Cannot be empty"
+    
+    # email does not follow addr-spec defined in RFC 5322
+    elif not re.match("(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", email):
+        error_message = "Email format is incorrect: Not a valid email"
+    
+    # password is empty
     elif len(password) < 1:
-        error_message = "Password not strong enough"
+        error_message = "Password format is incorrect: Cannot be empty"
+
+    # password is less than 6 characters
+    elif len(password) < 6:
+        error_message = "Password format is incorrect: Cannot be less than 6 characters"
+
+    # password does not have an uppercase character
+    elif not re.search("[A-Z]+", password):
+        error_message = "Password format is incorrect: Does not contain an uppercase character"
+
+    # password does not have a lowercase character
+    elif not re.search("[a-z]+", password):
+        error_message = "Password format is incorrect: Does not contain a lowercase character"
+
+    # password does not have a special character
+    elif not re.search("[\"'!@#$%^&*()-+?_=,<>/'\"]+", password):
+        error_message = "Password format is incorrect: Does not contain a special character"
+
+    # password and password2 have to be exactly the same
+    elif password != password2:
+        error_message = "Password format is incorrect: The passwords do not match"
+
+    # user name is empty
+    elif len(name) < 1:
+        error_message = "User name format is incorrect: Cannot be empty"
+
+    # user name is non-alphanumeric
+    elif re.search("[\W_]+", name):
+        error_message = "User name format is incorrect: Must be alphanumeric"
+
+    # user name has space as first character
+    elif re.search("^ ", name):
+        error_message = "User name format is incorrect: Cannot have space as first character"
+
+    # user name has space as last character
+    elif re.search(" $", name):
+        error_message = "User name format is incorrect: Cannot have space as last character"
+
+    # user name is 2 characters or shorter
+    elif len(name) <= 2:
+        error_message = "User name format is incorrect: Cannot be 2 characters or shorter"
+
+    # user name is 20 characters or more
+    elif len(name) >= 20:
+        error_message = "User name format is incorrect: Cannot be 20 characters or more"
+
     else:
         user = bn.get_user(email)
         if user:
             error_message = "User exists"
         elif not bn.register_user(email, name, password, password2):
             error_message = "Failed to store user info."
+
     # if there is any error messages when registering new user
     # at the backend, go back to the register page.
     if error_message:

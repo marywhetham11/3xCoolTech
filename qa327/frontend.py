@@ -150,6 +150,7 @@ def login_post():
     else:
         if error_message:
             return render_template('login.html', message=error_message)
+        # If no error_message exists then email/password combination must be incorrect
         else:
             return render_template('login.html', message='email/password combination incorrect')
 

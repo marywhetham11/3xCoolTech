@@ -10,7 +10,9 @@ Graeme's Question
 
 #### 3. Techniques and tools used for testing.
 
-Josh's Question
+Pytest will be used to test each component each time the code is modified on git. Each component R1-R7 will have a .py test file
+which will be ran through pytest. Each group member who programed thier component will be resplonsible for the corrisponding .py test 
+file. 
 
 #### 4. Environemnts (all the local environment and the cloud environment) for the testing.
 
@@ -22,4 +24,5 @@ Graeme's Question
 
 #### 6. Budget Management (you have limited CI action minutes, how to monitor, keep track and minimize unncessary cost)
 
-Josh's Question
+To ensure the system is meeting the requirments, pytest is ran upon each change to a branch. Changes will be made globaly only when
+deemed as complete. 

@@ -9,8 +9,8 @@
 |-------------|:-----:|-------------|
 | register_get | /register - get | renders the register.html template if the user is not logged in |
 | register_post | /register - post | registers a user in the database, sets the account balance to 5000 and redirects to the /login page if there are no errors in the information given |
-| login_get | /login - get | FOR JOSH |
-| login_post | /login - post  | FOR JOSH |
+| login_get | /login - get | renders the login.html only when the user is not logged in |
+| login_post | /login - post  | changes the session to 'logged_in' and redirects to home if the user input is correct and the there are no errors |
 | logout | /logout | FOR GRAEME |
 | authenticate | N/A | FOR GRAEME |
 | profile | / |  FOR GRAEME |
@@ -25,7 +25,7 @@
 | Method Name | Parameter | Description |
 |-------------|:---------:|-------------|
 | get_user | email | gets the user object with the specified email from the database |
-| login_user | email, password | FOR JOSH |
+| login_user | email, password | gets the user object given the email and password if password-hash maches password in database, returning None otherwise |
 | register_user | email, name, password, password2 | creates a new user instance in the database with the specified email, user name and password and creates a new account instance in the database with the specified email and a balance of 5000.00 |
 | get_all_tickets | N/A | FOR GRAEME |
 

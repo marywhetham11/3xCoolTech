@@ -150,6 +150,10 @@ def login_post():
         else:
             return render_template('login.html', message='email/password combination incorrect')
 
+
+
+
+
 @app.route('/logout')
 def logout():
     if 'logged_in' in session:

@@ -1,22 +1,81 @@
 {% extends 'base.html' %}
 
+
 {% block header %}
 <h1>{% block title %}Profile{% endblock %}</h1>
 {% endblock %}
+
 
 {% block content %}
 <h2 id="welcome-header">Welcome {{ user.name }} !</h2>
 
 
-<h2 >Here are all available tickets</h2>
+<h2 id="user_balence"> Balance: {{ account_balance.balance }} !</h2>
+<h2>Here are all available tickets</h2>
+
 
 <div id="tickets">
-{% for ticket in tickets %}
+    {% for ticket in tickets %}
     <div>
-        <h4>{{ ticket.name }} {{ ticket.price }}</h4>
+        <h4> {{ ticket.name }} {{ ticket.owner }}</h4>
+        <h5> Quantity: {{ ticket.quantity }} Price: {{ ticket.price }}</h5>
     </div>
-{% endfor %}
+    {% endfor %}
 </div>
+<br>
+<br>
+<h2>Sell Tickets</h2>
+<div id="sell_form">
+    <form method="post" action="/sell">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input class="form-control" name="name" id="name" required>
+            <label for="quantity">Quantity</label>
+            <input class="form-control" type="number" name="quantity" id="quantity" required>
+            <label for="price">Price</label>
+            <input class="form-control" type="number" name="price" id="price" required>
+            <label for="date">Date (yyyymmdd)</label>
+            <input class="form-control" type="text" name="date" id="date" required>
+            <br>
+            <input class="btn btn-primary" type="submit" value="Sell">
+        </div>
+    </form>
+</div>
+<br>
+<br>
+<h2>Buy Tickets</h2>
+<div id="buy_form">
+    <form method="post" action="/buy">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input class="form-control" name="name" id="name" required>
+            <label for="quantity">Quantity</label>
+            <input class="form-control" type="number" name="quantity" id="quantity" required>
+            <br>
+            <input class="btn btn-primary" type="submit" value="Buy">
+        </div>
+    </form>
+</div>
+<br>
+<br>
+<h2>Update Tickets</h2>
+<div id="update_form">
+    <form method="post" action="/update">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input class="form-control" name="name" id="name" required>
+            <label for="quantity">Quantity</label>
+            <input class="form-control" type="number" name="quantity" id="quantity" required>
+            <label for="price">Price</label>
+            <input class="form-control" type="number" name="price" id="price" required>
+            <label for="date">Date (yyyymmdd)</label>
+            <input class="form-control" type="text" name="date" id="date" required>
+            <br>
+            <input class="btn btn-primary" type="submit" value="Update">
+        </div>
+    </form>
+</div>
+
 
 <a href='/logout'>logout</a>
 {% endblock %}

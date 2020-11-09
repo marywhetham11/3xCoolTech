@@ -4,9 +4,14 @@
 
 There will be a folder for each level of test cases. So, there will be a folder for each of the following: requirements, unit, integration, system and acceptance. Within the requirement testing folder, there will be subfolder for each requirement group and within the unit testing folder, there will be a folder for the frontend and for the backend. In each folder/subfolder, there will a file for each requirement to test at this level.
 
-#### 2. The order ot the test cases (which level first which level second).
+#### 2. The order ot the test cases (which level first which level second).  
 
-Graeme's Question
+The order of the test cases would be:
+
+Level One - All test cases on the registration of a user
+Level Two - All test cases on the login of a user
+Level Three - All the test cases on the selling of the ticket
+Level Four - All the test cases on the buying and updating of tickets
 
 #### 3. Techniques and tools used for testing.
 
@@ -18,7 +23,9 @@ This program will be tested on local environments. It will be tested on the chro
 
 #### 5. Responsibility (who is responsible for which test case, and in case of failure, who should you contact)
 
-Graeme's Question
+All test cases for requirement 1 and requirement 4 are Joshua's responsibility. 
+All test cases for requirement 2 and requirement 5 are Mary's responsibility.
+All test cases for requirement 3, requirement 6, requirement 7 and requirement 8 are Graeme's responsibility. 
 
 #### 6. Budget Management (you have limited CI action minutes, how to monitor, keep track and minimize unncessary cost)
 

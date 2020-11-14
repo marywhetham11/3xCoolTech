@@ -1,5 +1,7 @@
 # 3xCoolTech
 
-This is Graeme's test push
-Mary changed this
-Jash added to this
+SeetGeek Project
+
+By: Mary Whetham, Graeme Badley and Josh Medves
+
+[![](https://github.com/71043481/3xCoolTech/workflows/SeekGeek-Build/badge.svg)]()

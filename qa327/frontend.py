@@ -111,9 +111,21 @@ def login_post():
     user = None
     error_message = None
 
+    # Preform email checks
+    # Email cannot be empty
+    if len(email) < 1:
+        error_message = "Email format incorrect: Cannot be empty"
+    # email does not follow addr-spec defined in RFC 5322
+    elif not re.match("(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", email):
+        error_message = "Email format incorrect: Not a valid email"
+    elif len(email) > 64:
+        error_message = "Email format incorrect: Not a valid email"
     # Preform password checks
+    # Password cannot be empty
+    elif len(password) < 1:
+        error_message = "Password format incorrect: Cannot be empty"
     # Password must be greater than length 5
-    if len(password) < 6:
+    elif len(password) < 6:
         error_message = "Password format incorrect: Must be greater than 5 characters"
     # Password must contain a special character
     elif not re.search("[\"'!@#$%^&*()-+?_=,<>/'\"]+", password):

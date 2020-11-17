@@ -45,6 +45,8 @@ class FrontEndRegistrationR1(BaseCase):
         This function tests that if the user is logged in and try to
         go to the register page, they are redirected to the home page
         """
+        # open logout page
+        self.open(base_url + '/logout')
         # open login page
         self.open(base_url + '/login')
         # fill email and password
@@ -58,6 +60,7 @@ class FrontEndRegistrationR1(BaseCase):
         # test if the page that loads is the home page and that it loads correctly
         self.assert_element("#welcome-header")
         self.assert_text("Welcome test_frontend", "#welcome-header")
+        # test if the tickets show up
         self.assert_element("#tickets div h4")
         self.assert_text("test_ticket_yo test_frontend@test.com", "#tickets div h4")
         self.assert_element("#tickets div h5")

@@ -32,7 +32,7 @@ def register_post():
         error_message = "Email format is incorrect: Cannot be empty"
 
     # email does not follow addr-spec defined in RFC 5322
-    elif not re.match("(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", email):
+    elif not (re.match("^(?:[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]{1,64}(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9]+(?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?)$", email) and re.search("@[a-zA-Z0-9-.]{1,255}$", email)):
         error_message = "Email format is incorrect: Not a valid email"
 
     # password is empty
@@ -64,7 +64,7 @@ def register_post():
         error_message = "User name format is incorrect: Cannot be empty"
 
     # user name is non-alphanumeric
-    elif re.search("[\W_]+", name):
+    elif not all(x.isalnum() or x.isspace() or x == "_" for x in name):
         error_message = "User name format is incorrect: Must be alphanumeric"
 
     # user name has space as first character
@@ -86,14 +86,14 @@ def register_post():
     else:
         user = bn.get_user(email)
         if user:
-            error_message = "User exists"
+            error_message = "This email has been ALREADY used"
         elif not bn.register_user(email, name, password, password2):
             error_message = "Failed to store user info."
 
     # if there is any error messages when registering new user
     # at the backend, go back to the register page.
     if error_message:
-        return render_template('register.html', message=error_message)
+        return render_template('login.html', message=error_message)
     else:
         return redirect('/login')
 

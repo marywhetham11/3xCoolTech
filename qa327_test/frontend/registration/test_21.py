@@ -50,8 +50,8 @@ class FrontEndRegistrationR1(BaseCase):
         # open login page
         self.open(base_url + '/login')
         # fill email and password
-        self.type("#email", "test_frontend@test.com")
-        self.type("#password", generate_password_hash('test_frontend'))
+        self.type("#email", test_user.email)
+        self.type("#password", test_user.password)
         # click enter button
         self.click('input[type="submit"]')
             

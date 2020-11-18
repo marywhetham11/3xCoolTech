@@ -32,7 +32,7 @@ def register_post():
         error_message = "Email format is incorrect: Cannot be empty"
 
     # email does not follow addr-spec defined in RFC 5322
-    elif not re.match("(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)", email):
+    elif not (re.match("^(?:[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]{1,64}(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-zA-Z0-9]+(?:[a-zA-Z0-9-]*[a-zA-Z0-9])?\.)+[a-zA-Z0-9](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?)$", email) and re.search("@[a-zA-Z0-9-.]{1,255}$", email)):
         error_message = "Email format is incorrect: Not a valid email"
 
     # password is empty

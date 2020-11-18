@@ -8,7 +8,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 """
 This file defines all requirement tests for R2.2.
-R2.2 - otherwise, show the user registration page
+R2.2 - if the user is not logged in, show the user registration page
 """
 
 class FrontEndRegistrationR2(BaseCase):

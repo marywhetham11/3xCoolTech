@@ -8,7 +8,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 """
 This file defines all requirement tests for R2.3.
-R2.3 - the registration page shows a registration form requesting: email, user name, password, assword2
+R2.3 - the registration page shows a registration form requesting: email, user name, password, password2
 """
 
 class FrontEndRegistrationR3(BaseCase):

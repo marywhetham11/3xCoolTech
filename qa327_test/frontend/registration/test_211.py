@@ -8,7 +8,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 """
 This file defines all requirement tests for R2.11.
-R2.11 - If no error regarding the inputs following the rules above, create a new user, set the balance to 5000, 
+R2.11 - If no error regarding the inputs following the rules in R2.5.1-R2.8.2, create a new user, set the balance to 5000, 
 and go back to the /login page
 """
 

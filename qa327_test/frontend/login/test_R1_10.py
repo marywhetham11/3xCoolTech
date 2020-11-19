@@ -3,7 +3,7 @@ from seleniumbase import BaseCase
 
 from qa327_test.conftest import base_url
 from unittest.mock import patch
-from qa327.models import db, User, Account_Balance, Ticket
+from qa327.models import db, User
 from werkzeug.security import generate_password_hash, check_password_hash
 
 """
@@ -33,7 +33,7 @@ class FrontEndLoginR1(BaseCase):
         self.open(base_url + '/login')
         # enter users email and password
         self.type("#email", "test@test.com")
-        self.type("#password", generate_password_hash('test_password'))
+        self.type("#password", test_user.password)
         # click enter button
         self.click('input[type="submit"]')
         # check the current redirected page

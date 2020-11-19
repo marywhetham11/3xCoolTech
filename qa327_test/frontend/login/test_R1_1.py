@@ -2,9 +2,6 @@ import pytest
 from seleniumbase import BaseCase
 
 from qa327_test.conftest import base_url
-from unittest.mock import patch
-from qa327.models import db, User, Account_Balance, Ticket
-from werkzeug.security import generate_password_hash, check_password_hash
 
 """
 This file defines all requirement tests for R1.1
@@ -15,7 +12,7 @@ class FrontEndLoginR1(BaseCase):
 
     def test_notLoggedIn(self, *_):
         """
-        This function tests that if the user is not logged in when 
+        This function tests that if the user is not logged in then 
         the /login page is displayed
         """
         # open /logout to ensure no logged in user

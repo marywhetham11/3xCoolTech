@@ -2,8 +2,6 @@ import pytest
 from seleniumbase import BaseCase
 
 from qa327_test.conftest import base_url
-from unittest.mock import patch
-from qa327.models import db, User, Account_Balance, Ticket
 from werkzeug.security import generate_password_hash, check_password_hash
 
 """
@@ -63,7 +61,7 @@ class FrontEndLoginR1(BaseCase):
         # open login page
         self.open(base_url + '/login')
         # enter an invalid email with special characters
-        self.type("#email", "t&$%t@domain.ext")
+        self.type("#email", "t^|$]t@domain.ext")
         # enter a valid password
         self.type("#password", "P@ssw0rd")
         # click enter
@@ -92,10 +90,31 @@ class FrontEndLoginR1(BaseCase):
         self.assert_element("#message")
         self.assert_text("Email format incorrect: Not a valid email", "#message")
 
+    def test_emailFormCheckLessThan255(self, *_):
+        """
+        This function tests the condition of the email form that
+        the email domain may not be longer than 255 characters
+        and that the correct warning message is displayed
+        """
+        # open /logout to ensure no logged in user
+        self.open(base_url + '/logout')
+        # open login page
+        self.open(base_url + '/login')
+        # enter an invalid email with more than 255 characters in domain
+        self.type("#email", "test@domainOfLenghtGreaterThan255000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000.ext")
+        # enter a valid password
+        self.type("#password", "P@ssw0rd")
+        # click enter
+        self.click('input[type="submit"]')
+        # Check that the error message displays correctly
+        self.assert_element("#message")
+        self.assert_text("Email format incorrect: Not a valid email", "#message")
+
+        
     def test_emailFormCheckLessThan64(self, *_):
         """
         This function tests the condition of the email form that
-        the email may not be longer than 64 characters
+        the email address may not be longer than 64 characters
         and that the correct warning message is displayed
         """
         # open /logout to ensure no logged in user
@@ -111,6 +130,7 @@ class FrontEndLoginR1(BaseCase):
         # Check that the error message displays correctly
         self.assert_element("#message")
         self.assert_text("Email format incorrect: Not a valid email", "#message")
+
 
     def test_emailFormCheckUnderscore(self, *_):
         """

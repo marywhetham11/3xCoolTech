@@ -3,7 +3,7 @@ from seleniumbase import BaseCase
 
 from qa327_test.conftest import base_url
 from unittest.mock import patch
-from qa327.models import db, User, Account_Balance, Ticket
+from qa327.models import db, User
 from werkzeug.security import generate_password_hash, check_password_hash
 
 """
@@ -25,7 +25,7 @@ class FrontEndLoginR1(BaseCase):
     def test_loginConfirmPost(self, *_):
         """
         This function tests that the user can summit the forms to the 
-        backend using the /submit to post
+        backend using the /login to post
         """
         # open /logout to ensure no logged in user
         self.open(base_url + '/logout')
@@ -33,7 +33,7 @@ class FrontEndLoginR1(BaseCase):
         self.open(base_url + '/login')
         # enter users email and password
         self.type("#email", "test@test.com")
-        self.type("#password", generate_password_hash('test_password'))
+        self.type("#password", test_user.password)
         # check if the login button exsists
         self.assert_element('form div input[type="submit"]')
         # click enter button

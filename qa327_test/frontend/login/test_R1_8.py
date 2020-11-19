@@ -2,6 +2,8 @@ import pytest
 from seleniumbase import BaseCase
 
 from qa327_test.conftest import base_url
+from unittest.mock import patch
+from qa327.models import db, User
 from werkzeug.security import generate_password_hash, check_password_hash
 
 """
@@ -9,8 +11,17 @@ This file defines all requirement tests for R1.8
 R1.8 - Password has to meet the required complexity
 """
 
+# Mock a sample user
+test_user = User(
+    email='test@test.com',
+    name='test_user',
+    password=generate_password_hash('test_password')
+)
+
+
 class FrontEndLoginR1(BaseCase):
 
+    @patch('qa327.backend.login_user', return_value=test_user)
     def test_passwordFormCheckCorrect(self, *_):
         """
         This function tests that if all conditions of the password form are met
@@ -21,14 +32,14 @@ class FrontEndLoginR1(BaseCase):
         # open login page
         self.open(base_url + '/login')
         # enter a valid email
-        self.type("#email", "test@test.com")
+        self.type("#email", test_user.email)
         # enter a valid password
-        self.type("#password", "P@ssw0rd")
+        self.type("#password", test_user.password)
         # click enter
         self.click('input[type="submit"]')
-        # Check that the error message displays correctly
-        self.assert_element("#message")
-        self.assert_text("email/password combination incorrect", "#message")
+        # check the current page has redirected
+        self.assert_element("#welcome-header")
+        self.assert_text("Welcome ", "#welcome-header")
 
     def test_passwordFormLengthOver5(self, *_):
         """

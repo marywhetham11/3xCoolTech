@@ -161,3 +161,87 @@ class FrontEndLoginR1(BaseCase):
         # Check that the error message displays correctly
         self.assert_element("#message")
         self.assert_text("Email format incorrect: Not a valid email", "#message")
+
+
+    def test_emailFormFirstCharacterPeriod(self, *_):
+        """
+        This function tests the condition of the email form that
+        no period may be the first character
+        and that the correct warning message is displayed
+        """
+        # open /logout to ensure no logged in user
+        self.open(base_url + '/logout')
+        # open login page
+        self.open(base_url + '/login')
+        # enter an invalid email with period as first char
+        self.type("#email", ".test@domain.ext")
+        # enter a valid password
+        self.type("#password", "P@ssw0rd")
+        # click enter
+        self.click('input[type="submit"]')
+        # Check that the error message displays correctly
+        self.assert_element("#message")
+        self.assert_text("Email format incorrect: Not a valid email", "#message")
+
+
+    def test_emailFormLastCharacterPeriod(self, *_):
+        """
+        This function tests the condition of the email form that
+        last char of the local may not be a period
+        and that the correct warning message is displayed
+        """
+        # open /logout to ensure no logged in user
+        self.open(base_url + '/logout')
+        # open login page
+        self.open(base_url + '/login')
+        # enter an invalid email with period as last char of local
+        self.type("#email", "test.@domain.ext")
+        # enter a valid password
+        self.type("#password", "P@ssw0rd")
+        # click enter
+        self.click('input[type="submit"]')
+        # Check that the error message displays correctly
+        self.assert_element("#message")
+        self.assert_text("Email format incorrect: Not a valid email", "#message")
+
+
+    def test_emailFormTwoPeriodsLocal(self, *_):
+        """
+        This function tests the condition of the email form that
+        the local may not have two periods in a row
+        and that the correct warning message is displayed
+        """
+        # open /logout to ensure no logged in user
+        self.open(base_url + '/logout')
+        # open login page
+        self.open(base_url + '/login')
+        # enter an invalid email with two periods in a row in the local
+        self.type("#email", "loc..al@domain.ext")
+        # enter a valid password
+        self.type("#password", "P@ssw0rd")
+        # click enter
+        self.click('input[type="submit"]')
+        # Check that the error message displays correctly
+        self.assert_element("#message")
+        self.assert_text("Email format incorrect: Not a valid email", "#message")
+
+
+    def test_emailFormNoSpecialCharDomian(self, *_):
+        """
+        This function tests the condition of the email form that
+        the domain may not contain any special characters
+        and that the correct warning message is displayed
+        """
+        # open /logout to ensure no logged in user
+        self.open(base_url + '/logout')
+        # open login page
+        self.open(base_url + '/login')
+        # enter an invalid email with special character in the domain
+        self.type("#email", "local@d+m@|n.ext")
+        # enter a valid password
+        self.type("#password", "P@ssw0rd")
+        # click enter
+        self.click('input[type="submit"]')
+        # Check that the error message displays correctly
+        self.assert_element("#message")
+        self.assert_text("Email format incorrect: Not a valid email", "#message")

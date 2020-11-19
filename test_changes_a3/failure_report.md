@@ -2,7 +2,7 @@
 
 | Test Cases Affected | Purpose of Test(s) | How Output is Incorrect | Location of Error | Error | Fix |
 |:-------------------:|:------------------:|:-----------------------:|:-----------------:|:-----:|:---:|
-| R1.6 | Email and password both cannot be empty | The user could not submit form if empty | Code - login.html | The email and password were not subbmitable | Remove lable 'required' from email and password form |
+| R1.6 | Email and password both cannot be empty | The user could not submit form if empty | Code - login.html | The email and password were not submitable | Remove label 'required' from email and password form |
 | R1.7 | Email has to follow addr-spec defined in RFC 5322 | The user could not submit an email with toatal characters greater then 64 | Code - frontend.py | An error would be returned instead of the form being posted | remove len(email)<64 from checks in frontend.py |
 | R1.1 | If the user hasn`t logged in, show the login page | Unclear documentation in code | Code - login.html | The \<h1> was not labled for clarity | \<h1> given the id="header" |
 | R1.7 | Email has to follow addr-spec defined in RFC 5322 | Some error cases not covered when the email is sumitted | frontend.py | The test for email allowed incorrect emails to be posted | changed the email test in login(post) to elif not match test cases |

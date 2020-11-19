@@ -11,17 +11,8 @@ This file defines all requirement tests for R1.1
 R1.1 - If the user hasn`t logged in, show the login page
 """
 
-# Mock a sample user
-test_user = User(
-    email='test@test.com',
-    name='test_user',
-    password=generate_password_hash('test_password')
-)
-
-
 class FrontEndLoginR1(BaseCase):
 
-    @patch('qa327.backend.login_user', return_value=test_user)
     def test_notLoggedIn(self, *_):
         """
         This function tests that if the user is not logged in when 

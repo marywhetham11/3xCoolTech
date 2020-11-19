@@ -13,10 +13,10 @@ R1.6 - Email and password both cannot be empty
 
 class FrontEndLoginR1(BaseCase):
 
-    def test_loginFormEmpty(self, *_):
+    def test_loginFormBothEmpty(self, *_):
         """
-        This function tests that the user form cannot be empty, if either 
-        is empty the message warns the user
+        This function tests that the user form cannot be empty, if both are
+        empty the message warns the user with an error message
         """
         # open /logout to ensure no logged in user
         self.open(base_url + '/logout')
@@ -28,6 +28,13 @@ class FrontEndLoginR1(BaseCase):
         self.assert_element("#message")
         self.assert_text("Email format incorrect: Cannot be empty", "#message")
 
+    def test_loginFormEmailEmpty(self, *_):
+        """
+        This function tests that the user form cannot be empty, if email is
+        empty the message warns the user with an error message
+        """
+        # open /logout to ensure no logged in user
+        self.open(base_url + '/logout')
         # open login page
         self.open(base_url + '/login')
         # enter users password
@@ -38,6 +45,13 @@ class FrontEndLoginR1(BaseCase):
         self.assert_element("#message")
         self.assert_text("Email format incorrect: Cannot be empty", "#message")
 
+    def test_loginFormPassEmpty(self, *_):
+        """
+        This function tests that the user form cannot be empty, if the password is
+        empty the message warns the user with an error message
+        """
+        # open /logout to ensure no logged in user
+        self.open(base_url + '/logout')
         # open login page
         self.open(base_url + '/login')
         # enter users email

@@ -11,17 +11,8 @@ This file defines all requirement tests for R1.2
 R1.2 - Login page has a default message that says please login
 """
 
-# Mock a sample user
-test_user = User(
-    email='test@test.com',
-    name='test_user',
-    password=generate_password_hash('test_password')
-)
-
-
 class FrontEndLoginR1(BaseCase):
 
-    @patch('qa327.backend.login_user', return_value=test_user)
     def test_loginMessageCheck(self, *_):
         """
         This function tests that the /login page has a default message 

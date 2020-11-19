@@ -43,3 +43,6 @@ class FrontEndLoginR1(BaseCase):
         self.assert_element("#welcome-header")
         self.assert_text("Welcome ", "#welcome-header")
 
+        # cleanup 
+        self.open(base_url + '/logout')
+

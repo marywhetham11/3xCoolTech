@@ -34,6 +34,10 @@ class FrontEndLoginR1(BaseCase):
         # enter users email and password
         self.type("#email", "test@test.com")
         self.type("#password", generate_password_hash('test_password'))
+        # check if the login button exsists
+        self.assert_element('form div input[type="submit"]')
         # click enter button
         self.click('input[type="submit"]')
 
+        # cleanup 
+        self.open(base_url + '/logout')

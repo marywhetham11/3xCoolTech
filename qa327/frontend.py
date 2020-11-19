@@ -171,6 +171,7 @@ def logout():
 # This function posts all of the information in the sell form and creates a new ticket
 def sell_post():
 
+    message = ""
     # All of the information entered by the user
 
     # The owner of the ticket's email
@@ -189,10 +190,16 @@ def sell_post():
     date = request.form.get('date')
 
     if not bn.sell_ticket(owner, name, quantity, price, date):
-        print("Failed to store sell info.")
+        # Return to the homepage after the post
+        return redirect('/')
+    else:
+        user = bn.get_user(owner)
+        tickets = bn.get_all_tickets()
+        account_balance = bn.get_account_balance(user.email)
+        # Return to the homepage after the post
+        return render_template('index.html', message="Sell Successful", user=user, tickets=tickets, account_balance=account_balance )
 
-    # Return to the homepage after the post
-    return redirect('/')
+    
 
 @app.route('/buy', methods=['POST'])
 # This function posts all of the information in the buy form and buys a ticket
@@ -205,10 +212,15 @@ def buy_post():
     quantity = request.form.get('quantity')
 
     if not bn.buy_ticket(name, quantity):
-        print("Failed to store buy info.")
+        # Return to the homepage after the post
+        return redirect('/')
+    else:
+        user = bn.get_user(session['logged_in'])
+        tickets = bn.get_all_tickets()
+        account_balance = bn.get_account_balance(user.email)
+        # Return to the homepage after the post
+        return render_template('index.html', message="Buy Successful", user=user, tickets=tickets, account_balance=account_balance )
 
-    # Return to the homepage after the post
-    return redirect('/')
 
 @app.route('/update', methods=['POST'])
 # This function posts all of the information in the update form and updates the corresponding ticket
@@ -230,10 +242,15 @@ def update_post():
     # The date that the event is happening
     date = request.form.get('date')
 
-    if not bn.update_ticket(owner, name, quantity, price, date):
-        print("Failed to store update info.")
-
-    return redirect('/')
+    if not bn.update_ticket(name, quantity):
+        # Return to the homepage after the post
+        return redirect('/')
+    else:
+        user = bn.get_user(session['logged_in'])
+        tickets = bn.get_all_tickets()
+        account_balance = bn.get_account_balance(user.email)
+        # Return to the homepage after the post
+        return render_template('index.html', message="Update Successful", user=user, tickets=tickets, account_balance=account_balance )
 
 def authenticate(inner_function):
     """

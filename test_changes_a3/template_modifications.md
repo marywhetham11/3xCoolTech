@@ -6,5 +6,6 @@ I added a folder called registration to the frontend folder of test cases. This 
 
 ### Graeme's Modifications
 
-
+I created three new folders for the test which include /homapage/
+/logout/ and /404page/. 
 ### Josh's Modifications

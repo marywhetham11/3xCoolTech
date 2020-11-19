@@ -16,7 +16,7 @@ class FrontEndLoginR1(BaseCase):
     def test_nonMatchingEmailPass(self, *_):
         """
         This function tests that when a valid email and password are entered
-        but no ecisting user is found, the propper error message is displayed
+        but no exsisting user is found, the propper error message is displayed
         """
         # open /logout to ensure no logged in user
         self.open(base_url + '/logout')

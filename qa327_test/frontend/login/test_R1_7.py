@@ -36,7 +36,7 @@ class FrontEndLoginR1(BaseCase):
         """
         This function tests the condition of the email form that
         only one @ symbol may be present in the email
-        and theat the correct warning message is displayed
+        and that the correct warning message is displayed
         """
         # open /logout to ensure no logged in user
         self.open(base_url + '/logout')
@@ -56,7 +56,7 @@ class FrontEndLoginR1(BaseCase):
         """
         This function tests the condition of the email form that
         no special character may be present
-        and theat the correct warning message is displayed
+        and that the correct warning message is displayed
         """
         # open /logout to ensure no logged in user
         self.open(base_url + '/logout')
@@ -76,7 +76,7 @@ class FrontEndLoginR1(BaseCase):
         """
         This function tests the condition of the email form that
         no quotation marks may be present
-        and theat the correct warning message is displayed
+        and that the correct warning message is displayed
         """
         # open /logout to ensure no logged in user
         self.open(base_url + '/logout')
@@ -96,7 +96,7 @@ class FrontEndLoginR1(BaseCase):
         """
         This function tests the condition of the email form that
         the email may not be longer than 64 characters
-        and theat the correct warning message is displayed
+        and that the correct warning message is displayed
         """
         # open /logout to ensure no logged in user
         self.open(base_url + '/logout')
@@ -116,7 +116,7 @@ class FrontEndLoginR1(BaseCase):
         """
         This function tests the condition of the email form that
         no underscore may be present in the domain
-        and theat the correct warning message is displayed
+        and that the correct warning message is displayed
         """
         # open /logout to ensure no logged in user
         self.open(base_url + '/logout')

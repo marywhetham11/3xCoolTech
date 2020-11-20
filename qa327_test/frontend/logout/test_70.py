@@ -7,8 +7,9 @@ from qa327.models import db, User,Account_Balance, Ticket
 from werkzeug.security import generate_password_hash, check_password_hash
 
 """
-This file defines all requirement tests for R3.1.
-R3.1 - If the user is not logged in, redirect to login page
+This file defines all requirement tests for R7
+R7 - If the user logsout, the user can't access the homepage 
+without logging in again.
 """
 # Mock a sample user
 test_user = User(
@@ -34,14 +35,11 @@ test_tickets = [
 
 class FrontEndHomepageR3(BaseCase):
 
-    @patch('qa327.backend.login_user', return_value=test_user)
-    @patch('qa327.backend.get_account_balance', return_value=test_account_balance)
-    @patch('qa327.backend.get_all_tickets', return_value=test_tickets)
-    @patch('qa327.backend.sell_ticket', return_value=test_user)
-    def test_checkShownTickets(self, *_):
+    
+    def test_logoutRestriction(self, *_):
         """
-        This function tests that if the user is not logged in they are redirected 
-        to the login page
+        If the user logsout, the user can't access the homepage 
+        without logging in again.
         """
         # logout to invalidate any logged-in sessions that may exist
         self.open(base_url +'/logout')
@@ -56,30 +54,50 @@ class FrontEndHomepageR3(BaseCase):
         # test if the page that loads is the home page and that it has the user's account balance
         self.click("a[href='/logout']")
 
+        # Test that if a user accesses the homepage not logged in, is redirected to the login page
+        # by looking for the Log In heading and the form
         self.assert_element("h1")
         self.assert_text("Log In", "h1")
+
+        # Looking for the form
         self.assert_element("form")
+
+        # Looking for the email field
         self.assert_element('form label[for="email"]')
         self.assert_text("Email", 'form label[for="email"]')
         self.assert_element("form #email")
+
+         # Looking for the password field
         self.assert_element('form label[for="password"]')
         self.assert_text("Password", 'form label[for="password"]')
         self.assert_element("form #password")
+
+        # Looking for the submit button
         self.assert_element("form #btn-submit")
 
+        # Try to open the homepage
         self.open(base_url + '/')
 
+        # Test that if a user accesses the homepage not logged in, is redirected to the login page
+        # by looking for the Log In heading and the form
         self.assert_element("h1")
         self.assert_text("Log In", "h1")
+
+        # Looking for the form
         self.assert_element("form")
+
+        # Looking for the email field
         self.assert_element('form label[for="email"]')
         self.assert_text("Email", 'form label[for="email"]')
         self.assert_element("form #email")
+        
+         # Looking for the password field
         self.assert_element('form label[for="password"]')
         self.assert_text("Password", 'form label[for="password"]')
         self.assert_element("form #password")
+
+        # Looking for the submit button
         self.assert_element("form #btn-submit")
-        self.open(base_url+'/logout')
 
  
 

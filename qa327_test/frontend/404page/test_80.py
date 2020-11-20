@@ -12,9 +12,9 @@ R8 - For any other requests except the ones above,
 the system should return a 404 error
 """
 
-class FrontEndHomepageR3(BaseCase):
+class FrontEnd404PageR8(BaseCase):
 
-    def test_logout(self, *_):
+    def test_logoutSession(self, *_):
         """
         This function tests that if a page is access that doesn't exist 
         a 404 error page is shown

@@ -7,8 +7,9 @@ from qa327.models import db, User,Account_Balance, Ticket
 from werkzeug.security import generate_password_hash, check_password_hash
 
 """
-This file defines all requirement tests for R3.1.
-R3.1 - If the user is not logged in, redirect to login page
+This file defines all requirement tests for R3.5.
+R3.5 - If the user is logged in, all availible tickets on the 
+homepage
 """
 # Mock a sample user
 test_user = User(
@@ -39,8 +40,8 @@ class FrontEndHomepageR3(BaseCase):
     @patch('qa327.backend.get_all_tickets', return_value=test_tickets)
     def test_checkShownTickets(self, *_):
         """
-        This function tests that if the user is not logged in they are redirected 
-        to the login page
+        This function tests that if the user is logged in and they are on the 
+        homepage, all of the avalible tickets are shown on the screen
         """
         # logout to invalidate any logged-in sessions that may exist
         self.open(base_url +'/logout')
@@ -52,12 +53,22 @@ class FrontEndHomepageR3(BaseCase):
         # click enter button
         self.click('input[type="submit"]')
         
-        # test if the page that loads is the home page and that it has the user's account balance
+        # test if the page that available tickets are shown on the homepage
+
+        # look for tickets div
         self.assert_element("#tickets")
+
+        # test if the ticket's quantity is there
         self.assert_element("#tickets div h5 #ticket_quantity")
         self.assert_text(test_tickets[0].quantity, "#tickets div h5 #ticket_quantity")
+
+        # test if the ticket's email is there
         self.assert_element("#tickets div h4 #ticket_email")
         self.assert_text(test_tickets[0].owner, "#tickets div h4 #ticket_email")
+
+        # test if the ticket's price is there
         self.assert_element("#tickets div h5 #ticket_price")
         self.assert_text(test_tickets[0].price, "#tickets div h5 #ticket_price")
+
+
         self.open(base_url +'/logout')

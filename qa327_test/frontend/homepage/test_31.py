@@ -25,12 +25,20 @@ class FrontEndHomepageR3(BaseCase):
         # by looking for the Log In heading and the form
         self.assert_element("h1")
         self.assert_text("Log In", "h1")
+
+        # Looking for the form
         self.assert_element("form")
+
+        # Looking for the email field
         self.assert_element('form label[for="email"]')
         self.assert_text("Email", 'form label[for="email"]')
         self.assert_element("form #email")
+
+        # Looking for the password field
         self.assert_element('form label[for="password"]')
         self.assert_text("Password", 'form label[for="password"]')
         self.assert_element("form #password")
+
+        # Looking for the submit button
         self.assert_element("form #btn-submit")
         self.open(base_url+'/logout')

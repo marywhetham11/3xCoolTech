@@ -49,8 +49,7 @@ class FrontEndHomepageR3(BaseCase):
     @patch('qa327.backend.sell_ticket', return_value=test_ticket2)
     def test_postSellForm(self, *_):
         """
-        This function tests that if the user is not logged in they are redirected 
-        to the login page
+        This function tests that the sell form is posted to /sell
         """
         # logout to invalidate any logged-in sessions that may exist
         self.open(base_url +'/logout')
@@ -62,15 +61,24 @@ class FrontEndHomepageR3(BaseCase):
         # click enter button
         self.click('input[type="submit"]')
         
-        # submit the test_ticket2 to the sell form
+        # submit the test_tickets to the sell form
+        # Check for name field and submit test_ticket2's name
         self.assert_element("#sell_form form div label[for='name']")
         self.type("#sell_form form div #name", test_ticket2.name)
+
+        # Check for quantity field and submit test_ticket2's quantity
         self.assert_element("#sell_form form div label[for='quantity']")
         self.type("#sell_form form div #quantity", test_ticket2.quantity)
+
+        # Check for price field and submit test_ticket2's price
         self.assert_element("#sell_form form div label[for='price']")
         self.type("#sell_form form div #price", test_ticket2.price)
+
+        # Check for date field and submit test_ticket2's date
         self.assert_element("#sell_form form div label[for='date']")
         self.type("#sell_form form div #date", test_ticket2.date)
+
+        # Click the submit button
         self.click("#sell_form form div input[type='submit']")
         
         # test to see if we we redirected to the homepage

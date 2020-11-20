@@ -190,6 +190,7 @@ def sell_post():
     date = request.form.get('date')
 
     if not bn.sell_ticket(owner, name, quantity, price, date):
+        print("Failed to store sell info.")
         # Return to the homepage after the post
         return redirect('/')
     else:
@@ -212,6 +213,7 @@ def buy_post():
     quantity = request.form.get('quantity')
 
     if not bn.buy_ticket(name, quantity):
+        print("Failed to store buy info.")
         # Return to the homepage after the post
         return redirect('/')
     else:
@@ -243,6 +245,7 @@ def update_post():
     date = request.form.get('date')
 
     if not bn.update_ticket(name, quantity):
+        print("Failed to store update info.")
         # Return to the homepage after the post
         return redirect('/')
     else:

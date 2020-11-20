@@ -58,12 +58,19 @@ class FrontEndHomepageR3(BaseCase):
         # a form that has the id "update_form" and has the fields name, quantity,
         # price, date
         self.assert_element("#update_form")
+        # test if there is a name field
         self.assert_element("#update_form label[for='name']")
         self.assert_text('Name',"#update_form label[for='name']")
+
+        # test if there is a quantity field
         self.assert_element("#update_form label[for='quantity']")
         self.assert_text('Quantity',"#update_form label[for='quantity']")
+
+        # test if there is a price field
         self.assert_element("#update_form label[for='price']")
         self.assert_text('Price',"#update_form label[for='price']")
+
+        # test if there is a date field
         self.assert_element("#update_form label[for='date']")
         self.assert_text('Date (yyyymmdd)',"#update_form label[for='date']")
         self.open(base_url +'/logout')

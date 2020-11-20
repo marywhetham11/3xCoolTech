@@ -59,9 +59,9 @@ class FrontEndRegistrationR1(BaseCase):
         self.open(base_url + '/register')
         # test if the page that loads is the home page and that it loads correctly
         self.assert_element("#welcome-header")
-        self.assert_text("Welcome test_frontend", "#welcome-header")
+        self.assert_text("Welcome " + test_user.name, "#welcome-header")
         # test if the tickets show up
         self.assert_element("#tickets div h4")
-        self.assert_text("test_ticket_yo test_frontend@test.com", "#tickets div h4")
+        self.assert_text(test_tickets[0].name + " " + test_tickets[0].owner, "#tickets div h4")
         self.assert_element("#tickets div h5")
-        self.assert_text("Quantity: 10 Price: 10", "#tickets div h5")
+        self.assert_text("Quantity: " + str(test_tickets[0].quantity) + " Price: " + str(test_tickets[0].price), "#tickets div h5")

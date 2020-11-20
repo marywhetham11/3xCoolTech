@@ -35,7 +35,9 @@ test_tickets = [
 
 class FrontEndHomepageR3(BaseCase):
 
-    
+    @patch('qa327.backend.login_user', return_value=test_user)
+    @patch('qa327.backend.get_account_balance', return_value=test_account_balance)
+    @patch('qa327.backend.get_all_tickets', return_value=test_tickets)
     def test_logoutRestriction(self, *_):
         """
         If the user logsout, the user can't access the homepage 

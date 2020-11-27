@@ -295,11 +295,11 @@ def update_post():
     tickets = bn.get_all_tickets()
     account_balance = bn.get_account_balance(user.email)
 
-    # if there is an error in the info provided, return to the homepage and display the error
+    # if there is an error in the info provided, return to the homepage and display the error message
     if error_message:
         return render_template('index.html', message=error_message, user=user, tickets=tickets, account_balance=account_balance)
     
-    # otherwise, return to the homepage after the post
+    # otherwise, return to the homepage after the post and display a success message
     else:    
         return render_template('index.html', message="Update Successful", user=user, tickets=tickets, account_balance=account_balance)
 

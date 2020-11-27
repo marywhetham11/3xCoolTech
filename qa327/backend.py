@@ -102,13 +102,20 @@ def update_ticket(owner, name, quantity, price, date):
     :param price: the price of the ticket
     :param date: the date of the event
     """
-    ticket = Ticket.query.filter_by(name=name).first()
-    ticket.name = name
-    ticket.quantity = int(quantity)
-    ticket.price = price
-    ticket.date = date
-    db.session.commit()
 
+    # find the ticket
+    ticket = Ticket.query.filter_by(name=name).first()
+
+    # if the ticket name exists in the system, then update the ticket
+    if ticket:
+        ticket.name = name
+        ticket.quantity = int(quantity)
+        ticket.price = price
+        ticket.date = date
+        db.session.commit()
+
+    # if the ticket exists then return the ticket, otherwise return None
+    # (ticket will be equal to None if ticket doesn't exist)
     return ticket
 
 def get_account_balance(email):

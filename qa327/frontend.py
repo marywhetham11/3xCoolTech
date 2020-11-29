@@ -336,7 +336,7 @@ def update_post():
         error_message = "Date format is incorrect: Must be 8 digits long"
 
     # the ticket does not exist in the database
-    if not bn.update_ticket(owner, name, quantity, price, date):
+    elif not bn.update_ticket(owner, name, quantity, price, date):
         error_message = "Error when saving: Failed to store update info"
 
     # get info needed to render the homepage

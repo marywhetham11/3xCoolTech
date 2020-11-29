@@ -171,9 +171,9 @@ def logout():
 # This function posts all of the information in the sell form and creates a new ticket
 def sell_post():
 
-    message = ""
-    # All of the information entered by the user
+    error_message = None
 
+    # All of the information entered by the user
     # The owner of the ticket's email
     owner = session['logged_in']
 
@@ -189,15 +189,64 @@ def sell_post():
     # The date that the event is happening
     date = request.form.get('date')
 
-    if not bn.sell_ticket(owner, name, quantity, price, date):
-        print("Failed to store sell info.")
-        # Return to the homepage after the post
-        return redirect('/')
-    else:
-        user = bn.get_user(owner)
-        tickets = bn.get_all_tickets()
-        account_balance = bn.get_account_balance(user.email)
-        # Return to the homepage after the post
+    # Check for errors from the given form
+    # ticket name is non-alphanumeric
+    if not all(x.isalnum() or x.isspace() or x == "_" for x in name):
+        error_message = "Ticket name format is incorrect: Must be alphanumeric"
+
+    # ticket name has space as first character
+    elif re.search("^ ", name):
+        error_message = "Ticket name format is incorrect: Cannot have space as first character"
+
+    # ticket name has space as last character
+    elif re.search(" $", name):
+        error_message = "Ticket name format is incorrect: Cannot have space as last character"
+
+    # ticket name is longer than 60 characters
+    elif len(name) > 60:
+        error_message = "Ticket name format is incorrect: Cannot be longer than 60 characters"
+
+    # quantity of the tickets is less than or equal to 0
+    elif int(quantity) <= 0:
+        error_message = "Quantity format is incorrect: Cannot be less than or equal to 0"
+    
+    # quantity of the tickets is greater than 100
+    elif int(quantity) > 100:
+        error_message = "Quantity format is incorrect: Cannot be greater than 100"
+
+    # price is less than 10
+    elif float(price) < 10:
+        error_message = "Price format is incorrect: Cannot be less than 10"
+        
+    # price is greater than 100
+    elif float(price) > 100:
+        error_message = "Price format is incorrect: Cannot be greater than 100"
+
+    # date has any non-numeric values 
+    elif not date.isnumeric():
+        error_message = "Date format is incorrect: Must be numeric"
+
+    # date is not of length 8
+    elif len(date) != 8:
+        error_message = "Date format is incorrect: Must be 8 digits long"
+
+
+    # if there is an error in selling the ticket
+    elif not bn.sell_ticket(owner, name, quantity, price, date):
+        error_message = "Failed to store sell info."
+
+    
+    # get info to render the homepage
+    user = bn.get_user(session['logged_in'])
+    tickets = bn.get_all_tickets()
+    account_balance = bn.get_account_balance(user.email)
+
+    # if there is any error, render the home screen with an error message.
+    if error_message:
+        return render_template('index.html', message=error_message, user=user, tickets=tickets, account_balance=account_balance)
+    
+    # return to home and display success message
+    else:    
         return render_template('index.html', message="Sell Successful", user=user, tickets=tickets, account_balance=account_balance)
 
 

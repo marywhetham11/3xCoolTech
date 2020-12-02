@@ -17,7 +17,7 @@
 <div id="tickets">
     {% for ticket in tickets %}
     <div>
-        <h4><span id="ticket_name">{{ ticket.name }}</span> <span id="ticket_email">{{ ticket.owner }}</spanid="ticket_quantity"></h4>
+        <h4><span id="ticket_name">{{ ticket.name }}</span> <span id="ticket_email">{{ ticket.owner }}</span id="ticket_quantity"></h4>
         <h5>Quantity: <span id="ticket_quantity">{{ ticket.quantity }}</span> Price: <span id="ticket_price">{{ ticket.price }}</span></h5>
     </div>
     {% endfor %}

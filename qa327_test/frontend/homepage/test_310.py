@@ -38,8 +38,10 @@ class FrontEndHomepageR3(BaseCase):
 
     @patch('qa327.backend.login_user', return_value=test_user)
     @patch('qa327.backend.get_account_balance', return_value=test_account_balance)
+    @patch('qa327.backend.set_account_balance', return_value=test_account_balance)
     @patch('qa327.backend.get_all_tickets', return_value=test_tickets)
     @patch('qa327.backend.buy_ticket', return_value=test_tickets[0])
+    @patch('qa327.backend.get_ticket', return_value=test_tickets[0])
     def test_postBuyForm(self, *_):
         """
         This function tests that the buy form is posted to /buy

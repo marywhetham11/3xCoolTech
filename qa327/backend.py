@@ -62,6 +62,16 @@ def get_all_tickets():
     tickets = Ticket.query.filter(Ticket.date >= today).all()
     return tickets
 
+def get_ticket(name):
+    """
+    This function returns a the ticket by name
+    :param name: the name of the ticket
+    """
+
+    # Query the ticket that matches the name given
+    ticket = Ticket.query.filter_by(name=name).first()
+    return ticket
+
 def sell_ticket(owner, name, quantity, price, date):
     """
     The user is putting up a ticket for sale

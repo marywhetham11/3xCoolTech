@@ -12,8 +12,8 @@
 | login_get | /login - get | renders the login.html only when the user is not logged in |
 | login_post | /login - post  | changes the session to 'logged_in' and redirects to home if the user input is correct and the there are no errors |
 | logout | /logout | Logsout the user and redirects them to the login page. |
-| sell_post | /sell | This function posts all of the information in the sell form and creates a new ticket |
-| buy_post | /buy | This function posts all of the information in the buy form and buys a ticket |
+| sell_post | /sell | This function posts all of the information in the sell form and creates a new ticket shows an error message if there is a formatting issue when the information entered or the ticket doesn't exist|
+| buy_post | /buy | This function posts all of the information in the buy form and buys a ticket shows an error message if there is a formatting issue when the information entered or the ticket doesn't exist|
 | update_post | /update | This function posts all of the information in the update form and either updates the corresponding ticket or shows an error message if there is a formatting issue when the information entered or the ticket doesn't exist |
 | authenticate | N/A | Wrap any python function and check the current session to see if the user has logged in. If login, it will call the inner_function with the logged in user object. |
 | profile | / |  Renders index.html with all availible tickcets and the account balance |
@@ -31,6 +31,7 @@
 | login_user | email, password | gets the user object given the email and password if password-hash maches password in database, returning None otherwise |
 | register_user | email, name, password, password2 | creates a new user instance in the database with the specified email, user name and password and creates a new account instance in the database with the specified email and a balance of 5000.00 |
 | get_all_tickets | N/A | This function returns all of the availible tickets for sale according to the current date |
+| get_ticket | name |  This function returns the tickets information based on its name |
 | sell_ticket | owner, name, quantity, price, date | This function creates a ticket in the database that is to be sold |
 | buy_ticket | name, quantity | This function purchases a ticket and updates the database for that ticket |
 | update_ticket | owner, name, quantity, price, date | This function updates a tickets attributes in the database if the ticket name exists in the database |

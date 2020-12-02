@@ -259,17 +259,66 @@ def buy_post():
 
     # The amount of tickets that want to be purchased
     quantity = request.form.get('quantity')
+    # The ticket requested to buy 
+    availibleTicket = bn.get_ticket(name) 
+    # The logged in user
+    user = bn.get_user(session['logged_in']) 
 
-    if not bn.buy_ticket(name, quantity):
-        print("Failed to store buy info.")
-        # Return to the homepage after the post
-        return redirect('/')
-    else:
-        user = bn.get_user(session['logged_in'])
-        tickets = bn.get_all_tickets()
-        account_balance = bn.get_account_balance(user.email)
-        # Return to the homepage after the post
-        return render_template('index.html', message="Buy Successful", user=user, tickets=tickets, account_balance=account_balance )
+    # The total price of the quantity of tickets requested
+    totalPrice = float((availibleTicket.price * float(quantity))) * 1.4 
+
+    # Info for the homepage
+    account_balance = bn.get_account_balance(user.email)
+    tickets = bn.get_all_tickets()
+    
+    error_message = None
+
+    # find if there is any errors in the info provided
+    # ticket name is non-alphanumeric
+    if not all(x.isalnum() or x.isspace() or x == "_" for x in name):
+        error_message = "Ticket name format is incorrect: Must be alphanumeric"
+
+    # ticket name has space as first character
+    elif re.search("^ ", name):
+        error_message = "Ticket name format is incorrect: Cannot have space as first character"
+
+    # ticket name has space as last character
+    elif re.search(" $", name):
+        error_message = "Ticket name format is incorrect: Cannot have space as last character"
+
+    # ticket name is longer than 60 characters
+    elif len(name) > 60:
+        error_message = "Ticket name format is incorrect: Cannot be longer than 60 characters"
+
+    # quantity of the tickets is less than or equal to 0
+    elif int(quantity) <= 0:
+        error_message = "Quantity format is incorrect: Cannot be less than or equal to 0"
+    
+    # quantity of the tickets is greater than 100
+    elif int(quantity) > 100:
+        error_message = "Quantity format is incorrect: Cannot be greater than 100"
+
+    # quantity requested to buy is more then the quantity of tickets
+    elif availibleTicket.quantity < int(quantity):
+        error_message = "Quantity format is incorrect: There are only " + str(availibleTicket.quantity) + " tickets avalible. Please enter a lower quantity"
+
+    # total price is greater then the user's account balance 
+    elif totalPrice > account_balance.balance:
+        error_message = "Account balance is too low"
+
+    # the ticket does not exist in the database
+    elif not bn.buy_ticket(name, quantity):
+        error_message = "Error when saving: Failed to store update info"
+  
+    # if there is an error in the info provided, return to the homepage and display the error message
+    if error_message:
+        return render_template('index.html', message=error_message, user=user, tickets=tickets, account_balance=account_balance)
+    
+    # otherwise, return to the homepage after the post and display a success message
+    else:    
+        # subtracts the price from the user's account balance 
+        bn.set_account_balance(user.email, account_balance.balance - totalPrice)
+        return render_template('index.html', message="Buy Successful", user=user, tickets=tickets, account_balance=account_balance)
 
 
 @app.route('/update', methods=['POST'])

@@ -298,10 +298,6 @@ def buy_post():
     elif int(quantity) > 100:
         error_message = "Quantity format is incorrect: Cannot be greater than 100"
 
-    # quantity of the tickets is greater than 100
-    elif int(quantity) > 100:
-        error_message = "Quantity format is incorrect: Cannot be greater than 100"
-
     # quantity requested to buy is more then the quantity of tickets
     elif availibleTicket.quantity < int(quantity):
         error_message = "Quantity format is incorrect: There are only " + str(availibleTicket.quantity) + " tickets avalible. Please enter a lower quantity"

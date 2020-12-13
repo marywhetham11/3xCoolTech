@@ -82,10 +82,10 @@ class FrontEndUpdateR0(BaseCase):
         test_tickets[0].date = updated_ticket.date
 
         # fill in name, quantity, price and date in the update form
-        self.type("#update_form form div #name", updated_ticket.name)
-        self.type("#update_form form div #quantity", int(test_tickets[0].quantity))
-        self.type("#update_form form div #price", float(test_tickets[0].price))
-        self.type("#update_form form div #date", updated_ticket.date)
+        self.type("#update_form form div input#name", updated_ticket.name)
+        self.type("#update_form form div input#quantity", int(test_tickets[0].quantity))
+        self.type("#update_form form div input#price", float(test_tickets[0].price))
+        self.type("#update_form form div input#date", updated_ticket.date)
         self.click('#update_form form div input[type="submit"]')
 
         # test if the page that loads is the home page and that it loads correctly

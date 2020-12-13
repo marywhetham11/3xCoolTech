@@ -53,8 +53,8 @@ class FrontEndUpdateR0(BaseCase):
     @patch('qa327.backend.get_user', return_value=test_user)
     def test_ticketSuccess(self, *_):
         """
-        This function tests that if the user is logged in and try to
-        go to the register page, they are redirected to the home page
+        This function tests that if the user can successfully update a ticket's information
+        using the update form
         """
         # open logout page
         self.open(base_url + '/logout')
@@ -82,10 +82,10 @@ class FrontEndUpdateR0(BaseCase):
         test_tickets[0].date = updated_ticket.date
 
         # fill in name, quantity, price and date in the update form
-        self.type("#update_form form div input#name", updated_ticket.name)
-        self.type("#update_form form div input#quantity", int(test_tickets[0].quantity))
-        self.type("#update_form form div input#price", float(test_tickets[0].price))
-        self.type("#update_form form div input#date", updated_ticket.date)
+        self.type("#update_form form div #name", updated_ticket.name)
+        self.type("#update_form form div #quantity", updated_ticket.quantity)
+        self.type("#update_form form div #price", updated_ticket.price)
+        self.type("#update_form form div #date", updated_ticket.date)
         self.click('#update_form form div input[type="submit"]')
 
         # test if the page that loads is the home page and that it loads correctly

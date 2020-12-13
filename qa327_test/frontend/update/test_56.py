@@ -70,10 +70,10 @@ class FrontEndUpdateR6(BaseCase):
         # fill in name, quantity, price and date in the update form
         # update_ticket backend method will return None, signaling that the ticket
         # does not exist
-        self.type("#update_form form div input#name", "fake_ticket") # error: does not exist
-        self.type("#update_form form div input#quantity", int(test_tickets[0].quantity)) 
-        self.type("#update_form form div input#price", float(test_tickets[0].price)) 
-        self.type("#update_form form div input#date", test_tickets[0].date)
+        self.type("#update_form form div #name", "fake_ticket") # error: does not exist
+        self.type("#update_form form div #quantity", test_tickets[0].quantity) 
+        self.type("#update_form form div #price", test_tickets[0].price) 
+        self.type("#update_form form div #date", test_tickets[0].date)
         self.click('#update_form form div input[type="submit"]')
 
         # test if the page that loads is the home page and that it loads correctly

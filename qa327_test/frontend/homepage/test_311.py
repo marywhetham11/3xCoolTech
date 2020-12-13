@@ -57,19 +57,19 @@ class FrontEndHomepageR3(BaseCase):
         # submit the test_ticket[0] to the update form
         # Check for name field and submit test_tickets[0]'s name
         self.assert_element("#update_form form div label[for='name']")
-        self.update_text("#update_form form div input#name", test_tickets[0].name)
+        self.type("#update_form form div #name", test_tickets[0].name)
 
         # Check for quantity field and submit test_tickets[0]'s quantity
         self.assert_element("#update_form form div label[for='quantity']")
-        self.update_text("#update_form form div input#quantity", int(test_tickets[0].quantity))
+        self.type("#update_form form div #quantity", test_tickets[0].quantity)
 
         # Check for price field and submit test_tickets[0]'s price
         self.assert_element("#update_form form div label[for='price']")
-        self.update_text("#update_form form div input#price", float(test_tickets[0].price))
+        self.type("#update_form form div #price", test_tickets[0].price)
 
         # Check for date field and submit test_tickets[0]'s date
         self.assert_element("#update_form form div label[for='date']")
-        self.update_text("#update_form form div input#date", test_tickets[0].date)
+        self.type("#update_form form div #date", test_tickets[0].date)
 
         # Click the submit button
         self.click("#update_form form div input[type='submit']")

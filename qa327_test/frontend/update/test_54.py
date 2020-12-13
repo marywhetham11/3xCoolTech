@@ -68,7 +68,7 @@ class FrontEndUpdateR4(BaseCase):
 
         # fill in name, quantity, price and date in the update form
         self.type("#update_form form div #name", test_tickets[0].name) 
-        self.type("#update_form form div #quantity", test_tickets[0].quantity) 
+        self.type("#update_form form div #quantity", str(test_tickets[0].quantity)) 
         self.type("#update_form form div #price", "9.99") # error: less than 10
         self.type("#update_form form div #date", test_tickets[0].date)
         self.click('#update_form form div input[type="submit"]')
@@ -120,7 +120,7 @@ class FrontEndUpdateR4(BaseCase):
 
         # fill in name, quantity, price and date in the update form
         self.type("#update_form form div #name", test_tickets[0].name) 
-        self.type("#update_form form div #quantity", test_tickets[0].quantity) 
+        self.type("#update_form form div #quantity", str(test_tickets[0].quantity)) 
         self.type("#update_form form div #price", "100.01") # error: greater than 100
         self.type("#update_form form div #date", test_tickets[0].date)
         self.click('#update_form form div input[type="submit"]')

@@ -68,8 +68,8 @@ class FrontEndUpdateR2(BaseCase):
 
         # fill in name, quantity, price and date in the update form
         self.type("#update_form form div #name", "test_update_nameaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa") # error: greater than 60 characters
-        self.type("#update_form form div #quantity", test_tickets[0].quantity)
-        self.type("#update_form form div #price", test_tickets[0].price)
+        self.type("#update_form form div #quantity", str(test_tickets[0].quantity))
+        self.type("#update_form form div #price", str(test_tickets[0].price))
         self.type("#update_form form div #date", test_tickets[0].date)
         self.click('#update_form form div input[type="submit"]')
 

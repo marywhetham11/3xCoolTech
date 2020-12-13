@@ -83,8 +83,8 @@ class FrontEndUpdateR0(BaseCase):
 
         # fill in name, quantity, price and date in the update form
         self.type("#update_form form div #name", updated_ticket.name)
-        self.type("#update_form form div #quantity", updated_ticket.quantity)
-        self.type("#update_form form div #price", updated_ticket.price)
+        self.type("#update_form form div #quantity", str(updated_ticket.quantity))
+        self.type("#update_form form div #price", str(updated_ticket.price))
         self.type("#update_form form div #date", updated_ticket.date)
         self.click('#update_form form div input[type="submit"]')
 

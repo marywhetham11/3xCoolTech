@@ -70,7 +70,7 @@ class FrontEndUpdateR3(BaseCase):
         # fill in name, quantity, price and date in the update form
         self.type("#update_form form div #name", test_tickets[0].name) 
         self.type("#update_form form div #quantity", "0") # error: zero
-        self.type("#update_form form div #price", test_tickets[0].price)
+        self.type("#update_form form div #price", str(test_tickets[0].price))
         self.type("#update_form form div #date", test_tickets[0].date)
         self.click('#update_form form div input[type="submit"]')
 
@@ -122,7 +122,7 @@ class FrontEndUpdateR3(BaseCase):
         # fill in name, quantity, price and date in the update form
         self.type("#update_form form div #name", test_tickets[0].name) 
         self.type("#update_form form div #quantity", "-1") # error: less than zero
-        self.type("#update_form form div #price", test_tickets[0].price)
+        self.type("#update_form form div #price", str(test_tickets[0].price))
         self.type("#update_form form div #date", test_tickets[0].date)
         self.click('#update_form form div input[type="submit"]')
 
@@ -174,7 +174,7 @@ class FrontEndUpdateR3(BaseCase):
         # fill in name, quantity, price and date in the update form
         self.type("#update_form form div #name", test_tickets[0].name) 
         self.type("#update_form form div #quantity", "101") # error: greater than 100
-        self.type("#update_form form div #price", test_tickets[0].price)
+        self.type("#update_form form div #price", str(test_tickets[0].price))
         self.type("#update_form form div #date", test_tickets[0].date)
         self.click('#update_form form div input[type="submit"]')
 

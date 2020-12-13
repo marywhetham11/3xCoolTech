@@ -68,8 +68,8 @@ class FrontEndUpdateR5(BaseCase):
 
         # fill in name, quantity, price and date in the update form
         self.type("#update_form form div #name", test_tickets[0].name) 
-        self.type("#update_form form div #quantity", test_tickets[0].quantity) 
-        self.type("#update_form form div #price", test_tickets[0].price) 
+        self.type("#update_form form div #quantity", int(test_tickets[0].quantity)) 
+        self.type("#update_form form div #price", float(test_tickets[0].price)) 
         self.type("#update_form form div #date", "2020aa01") # error: non-numeric
         self.click('#update_form form div input[type="submit"]')
 
@@ -120,8 +120,8 @@ class FrontEndUpdateR5(BaseCase):
 
         # fill in name, quantity, price and date in the update form
         self.type("#update_form form div #name", test_tickets[0].name) 
-        self.type("#update_form form div #quantity", test_tickets[0].quantity) 
-        self.type("#update_form form div #price", test_tickets[0].price) 
+        self.type("#update_form form div #quantity", int(test_tickets[0].quantity)) 
+        self.type("#update_form form div #price", float(test_tickets[0].price)) 
         self.type("#update_form form div #date", "202001") # error: not length 8
         self.click('#update_form form div input[type="submit"]')
 

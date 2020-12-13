@@ -69,8 +69,8 @@ class FrontEndUpdateR1(BaseCase):
 
         # fill in name, quantity, price and date in the update form
         self.type("#update_form form div #name", "test_update_name^") # error: non-alphanumeric
-        self.type("#update_form form div #quantity", test_tickets[0].quantity)
-        self.type("#update_form form div #price", test_tickets[0].price)
+        self.type("#update_form form div #quantity", int(test_tickets[0].quantity))
+        self.type("#update_form form div #price", float(test_tickets[0].price))
         self.type("#update_form form div #date", test_tickets[0].date)
         self.click('#update_form form div input[type="submit"]')
 
@@ -121,8 +121,8 @@ class FrontEndUpdateR1(BaseCase):
 
         # fill in name, quantity, price and date in the update form
         self.type("#update_form form div #name", " test_update_name") # error: space as the first character
-        self.type("#update_form form div #quantity", test_tickets[0].quantity)
-        self.type("#update_form form div #price", test_tickets[0].price)
+        self.type("#update_form form div #quantity", int(test_tickets[0].quantity))
+        self.type("#update_form form div #price", float(test_tickets[0].price))
         self.type("#update_form form div #date", test_tickets[0].date)
         self.click('#update_form form div input[type="submit"]')
 
@@ -173,8 +173,8 @@ class FrontEndUpdateR1(BaseCase):
 
         # fill in name, quantity, price and date in the update form
         self.type("#update_form form div #name", "test_update_name ") # error: space as the last character
-        self.type("#update_form form div #quantity", test_tickets[0].quantity)
-        self.type("#update_form form div #price", test_tickets[0].price)
+        self.type("#update_form form div #quantity", int(test_tickets[0].quantity))
+        self.type("#update_form form div #price", float(test_tickets[0].price))
         self.type("#update_form form div #date", test_tickets[0].date)
         self.click('#update_form form div input[type="submit"]')
 

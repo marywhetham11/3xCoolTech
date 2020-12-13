@@ -64,19 +64,19 @@ class FrontEndHomepageR3(BaseCase):
         # submit the test_tickets to the sell form
         # Check for name field and submit test_ticket2's name
         self.assert_element("#sell_form form div label[for='name']")
-        self.type("#sell_form form div input#name", test_ticket2.name)
+        self.update_text("#sell_form form div input#name", test_ticket2.name)
 
         # Check for quantity field and submit test_ticket2's quantity
         self.assert_element("#sell_form form div label[for='quantity']")
-        self.type("#sell_form form div input#quantity", test_ticket2.quantity)
+        self.update_text("#sell_form form div input#quantity", int(test_ticket2.quantity))
 
         # Check for price field and submit test_ticket2's price
         self.assert_element("#sell_form form div label[for='price']")
-        self.type("#sell_form form div input#price", test_ticket2.price)
+        self.update_text("#sell_form form div input#price", float(test_ticket2.price))
 
         # Check for date field and submit test_ticket2's date
         self.assert_element("#sell_form form div label[for='date']")
-        self.type("#sell_form form div input#date", test_ticket2.date)
+        self.update_text("#sell_form form div input#date", test_ticket2.date)
 
         # Click the submit button
         self.click("#sell_form form div input[type='submit']")

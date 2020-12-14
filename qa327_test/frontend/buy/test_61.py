@@ -69,7 +69,7 @@ class FrontEndBuyR6(BaseCase):
 
         # type the name and quantity wanted into the buy form
         self.type("#buy_form form div #name", "h^lloe") # error: non-alphanumeric
-        self.type("#buy_form form div #quantity", test_tickets[0].quantity)
+        self.type("#buy_form form div #quantity", str(test_tickets[0].quantity))
         # click submit button
         self.click('#buy_form form div input[type="submit"]')
 

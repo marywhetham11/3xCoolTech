@@ -63,7 +63,7 @@ class FrontEndHomepageR3(BaseCase):
 
         # Check for quantity field and submit test_tickets[0]'s quantity
         self.assert_element("#buy_form form div label[for='quantity']")
-        self.type("#buy_form form div #quantity", test_tickets[0].quantity)
+        self.type("#buy_form form div #quantity", str(test_tickets[0].quantity))
 
         # Click the submit button
         self.click("#buy_form form div input[type='submit']")

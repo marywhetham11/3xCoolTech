@@ -68,11 +68,11 @@ class FrontEndHomepageR3(BaseCase):
 
         # Check for quantity field and submit test_ticket2's quantity
         self.assert_element("#sell_form form div label[for='quantity']")
-        self.type("#sell_form form div #quantity", test_ticket2.quantity)
+        self.type("#sell_form form div #quantity", str(test_ticket2.quantity))
 
         # Check for price field and submit test_ticket2's price
         self.assert_element("#sell_form form div label[for='price']")
-        self.type("#sell_form form div #price", test_ticket2.price)
+        self.type("#sell_form form div #price", str(test_ticket2.price))
 
         # Check for date field and submit test_ticket2's date
         self.assert_element("#sell_form form div label[for='date']")

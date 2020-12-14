@@ -162,7 +162,6 @@ def delete_user(email):
     db.session.delete(account_balance)
     db.session.commit()
 
-
 def delete_ticket(name):
     """
     Function used in integration testing to delete a ticket before the test is preformed

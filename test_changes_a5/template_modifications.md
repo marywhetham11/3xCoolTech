@@ -6,6 +6,7 @@ I added a folder called update to the frontend folder of test cases. This update
 
 ### Graeme's Modifications
 
+I added a folder called buy to the frontend folder of test cases. This buy folder stored all the test cases to test R6 of the assignment. Each sub requirement is a file in the folder. These test cases are designed as specified in R6.md in the test_cases_a1 folder. I also added the test_purchaseing.py to the integration folder which test the integration of all the compents of the program inorder for a user to purchase a ticket. 
 
 
 ### Josh's Modifications

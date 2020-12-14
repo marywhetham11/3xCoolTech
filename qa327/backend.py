@@ -149,3 +149,24 @@ def set_account_balance(email, balance):
     db.session.commit()
 
     return account_balance
+
+def delete_user(email):
+    """
+    Function used in integration testing to delete a user before the test is preformed
+    Removes the given user from the database
+    """
+    user = User.query.filter_by(email=email).first()
+    account_balance = Account_Balance.query.filter_by(email=email).first()
+    db.session.delete(user)
+    db.session.delete(account_balance)
+    db.session.commit()
+
+
+def delete_ticket(name):
+    """
+    Function used in integration testing to delete a ticket before the test is preformed
+    Removes the given ticket from the database
+    """
+    ticket = Ticket.query.filter_by(name=name).first()
+    db.session.delete(ticket)
+    db.session.commit()

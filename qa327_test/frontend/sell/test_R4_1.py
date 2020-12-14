@@ -42,7 +42,7 @@ class BackendSellR4(BaseCase):
         # enter the ticket information
         # enter BAD ticket name
         self.assert_element("#sell_form form div label[for='name']")
-        self.type("#sell_form form div #name", "900@B%$$")
+        self.type("#sell_form form div #name", "b@dN#me$")
         # enter valid ticket quantity
         self.assert_element("#sell_form form div label[for='quantity']")
         self.type("#sell_form form div #quantity", "10")

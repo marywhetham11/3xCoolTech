@@ -2,13 +2,13 @@ import pytest
 from seleniumbase import BaseCase
 
 from qa327_test.conftest import base_url
-from unittest.mock import patch
+import qa327.backend as bn
 from qa327.models import db, User, Ticket
 from werkzeug.security import generate_password_hash, check_password_hash
 
 """
 This file defines an integration test for a example user signing up for the 
-service, then posting a ticket to the site. 
+service, then posting a ticket to the site. Use the browser.
 """
 
 # Mock a sample user for 
@@ -33,6 +33,10 @@ class integrationTestSignupPost(BaseCase):
         """
         This tests that the user can sign up, log in, and sell
         """
+        # first check that the user does not exsist 
+        if(bn.get_user(test_user.email)):
+            bn.delete_user(test_user.email)
+
         # open logout page
         self.open(base_url + '/logout')
         # open register page
@@ -45,6 +49,7 @@ class integrationTestSignupPost(BaseCase):
         # click enter button
         self.click('input[type="submit"]')
 
+        # check that the user is redirected to the home page
         self.assert_element("h1")
         self.assert_text("Log In", "h1")
         # enter users email and password
@@ -56,6 +61,11 @@ class integrationTestSignupPost(BaseCase):
         # check we are in the homepage and login is successful
         self.open(base_url + '/')
         self.assert_element("#sell_form")
+
+        # check that the ticket does not exsist
+        if(bn.get_ticket(test_ticket.name)):
+            bn.delete_ticket(test_ticket.name)
+
         # enter the ticket information
         # ticket name
         self.assert_element("#sell_form form div label[for='name']")

@@ -10,3 +10,4 @@ I added a folder called update to the frontend folder of test cases. This update
 
 ### Josh's Modifications
 
+I added a folder called sell to the frontend folder in QA327_test. This folder holds all the test cases for R4 for the assignment. In the integration test folder, a test for registering and posting a ticket is added. Changes to backend.py allows for integrated testing to be preformed. 

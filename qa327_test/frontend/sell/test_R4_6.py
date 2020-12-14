@@ -7,8 +7,8 @@ from qa327.models import db, User, Account_Balance, Ticket
 from werkzeug.security import generate_password_hash, check_password_hash
 
 """
-This file defines all requirement tests for R4.2
-R4.2 -  The name of the ticket is no longer than 60 characters
+This file defines all requirement tests for R4.6
+R4.6 -  For any errors, redirect back to / and show an error message
 """
 
 # Mock a sample user
@@ -41,10 +41,10 @@ class FrontendSellR4(BaseCase):
     @patch('qa327.backend.login_user', return_value=test_user)
     @patch('qa327.backend.get_account_balance', return_value=test_account_balance)
     @patch('qa327.backend.get_all_tickets', return_value=test_tickets)
-    def test_sellNameLong(self, *_):
+    def test_sellInvalid(self, *_):
         """
-        This function tests that the user cannot submit a ticket
-        with a name longer then 60 chars
+        This function tests that upon error the user is directed to 
+        the main page and an error message is 
         """
         # open /logout to ensure no logged in user
         self.open(base_url + '/logout')
@@ -59,24 +59,26 @@ class FrontendSellR4(BaseCase):
         # check we are in the homepage and login is successful
         self.assert_element("#sell_form")
         # enter the ticket information
-        # enter BAD ticket name
+        # enter invalid name
         self.assert_element("#sell_form form div label[for='name']")
-        self.type("#sell_form form div #name", "badNameOfLengthGreaterThanSixtyCharactersShouldBeRejectedHere")
-        # enter valid ticket quantity
+        self.type("#sell_form form div #name", "b@dName")
+        # enter invalid ticket quantity
         self.assert_element("#sell_form form div label[for='quantity']")
-        self.type("#sell_form form div #quantity", "10")
-        # enter valid ticket price
+        self.type("#sell_form form div #quantity", "10000")
+        # enter invalid ticket price
         self.assert_element("#sell_form form div label[for='price']")
-        self.type("#sell_form form div #price", "10")
-        # enter valid ticket date
+        self.type("#sell_form form div #price", "5000000")
+        # enter invalid ticket date
         self.assert_element("#sell_form form div label[for='date']")
         self.type("#sell_form form div #date", "20201214")
         # submit the form
         self.click("#sell_form form div input[type='submit']")
 
         # test that the post was unsuccessful
+        # test main page displays with error
+        self.assert_element("#welcome-header")
         self.assert_element("#message")
-        self.assert_text("Ticket name format is incorrect: Cannot be longer than 60 characters","#message")
+        self.assert_text("Ticket name format is incorrect: Must be alphanumeric","#message")
 
         # cleanup 
         self.open(base_url + '/logout')

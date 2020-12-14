@@ -3,7 +3,7 @@ from seleniumbase import BaseCase
 
 from qa327_test.conftest import base_url
 from unittest.mock import patch
-from qa327.models import db, User
+from qa327.models import db, User, Account_Balance, Ticket
 from werkzeug.security import generate_password_hash, check_password_hash
 
 """
@@ -18,10 +18,29 @@ test_user = User(
     password=generate_password_hash('test_password')
 )
 
+# Mock an account balance
+test_account_balance = Account_Balance(
+    email='test_frontend@test.com',
+    balance=5000.00
+)
 
-class BackendSellR4(BaseCase):
+# Mock a sample ticket
+test_tickets = [
+    Ticket(
+        owner='test_frontend@test.com',
+        name='test_ticket_yo',
+        quantity=10,
+        price=10,
+        date='20200901'
+    )
+]
+
+
+class FrontendSellR4(BaseCase):
 
     @patch('qa327.backend.login_user', return_value=test_user)
+    @patch('qa327.backend.get_account_balance', return_value=test_account_balance)
+    @patch('qa327.backend.get_all_tickets', return_value=test_tickets)
     def test_sellQuantityBelow(self, *_):
         """
         This function tests that the user cannot submit a ticket
@@ -55,7 +74,7 @@ class BackendSellR4(BaseCase):
         # submit the form
         self.click("#sell_form form div input[type='submit']")
 
-        # test that the post was unsuccesfull
+        # test that the post was unsuccessful
         self.assert_element("#message")
         self.assert_text("Quantity format is incorrect: Cannot be less than or equal to 0","#message")
 
@@ -97,7 +116,7 @@ class BackendSellR4(BaseCase):
         # submit the form
         self.click("#sell_form form div input[type='submit']")
 
-        # test that the post was unsuccesfull
+        # test that the post was unsuccessful
         self.assert_element("#message")
         self.assert_text("Quantity format is incorrect: Cannot be greater than 100","#message")
 

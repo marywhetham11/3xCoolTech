@@ -2,13 +2,13 @@ import pytest
 from seleniumbase import BaseCase
 
 from qa327_test.conftest import base_url
-from qa327.models import db, User, Ticket
+from qa327.models import db, User, Account_Balance, Ticket
 from unittest.mock import patch
 from werkzeug.security import generate_password_hash, check_password_hash
 
 """
-This file defines all requirement tests for R4
-R4 - The postive case for login is tested
+This file defines all requirement tests for R4.7
+R4.7 - The postive case for login is tested
 """
 
 # Mock a sample user
@@ -27,13 +27,33 @@ test_ticket = Ticket(
     date='20201214'
 )
 
-class BackendSellR4(BaseCase):
+# Mock an account balance
+test_account_balance = Account_Balance(
+    email='test_frontend@test.com',
+    balance=5000.00
+)
+
+# Mock a sample ticket
+test_tickets = [
+    Ticket(
+        owner='test@test.com',
+        name='testTicket',
+        quantity=10,
+        price=10,
+        date='20201214'
+    )
+]
+
+
+class FrontendSellR4(BaseCase):
 
     @patch('qa327.backend.login_user', return_value=test_user)
     @patch('qa327.backend.sell_ticket', return_value=test_ticket)
+    @patch('qa327.backend.get_account_balance', return_value=test_account_balance)
+    @patch('qa327.backend.get_all_tickets', return_value=test_tickets)
     def test_sellPositive(self, *_):
         """
-        This function tests that the user can submit a ticket to sell
+        This function tests that the user can submit a valid ticket to sell
         """
         # open /logout to ensure no logged in user
         self.open(base_url + '/logout')
@@ -63,9 +83,17 @@ class BackendSellR4(BaseCase):
         # submit the form
         self.click("#sell_form form div input[type='submit']")
 
+        # test the the home page loads correctly
+        self.assert_element("#welcome-header")
+        self.assert_text("Welcome ", "#welcome-header")
         # test that the post was succesfull
         self.assert_element("#message")
         self.assert_text("Sell Successful","#message")
+        # test that the ticket appears
+        self.assert_element("#tickets div h4")
+        self.assert_text(test_ticket.name + " " + test_ticket.owner, "#tickets div h4")
+        self.assert_element("#tickets div h5")
+        self.assert_text("Quantity: " + str(test_ticket.quantity) + " Price: " + str(test_ticket.price), "#tickets div h5")
 
         # cleanup 
         self.open(base_url + '/logout')

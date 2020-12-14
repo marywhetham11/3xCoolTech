@@ -29,9 +29,9 @@ test_ticket = Ticket(
 @pytest.mark.usefixtures('server')
 class integrationTestSignupPost(BaseCase):
 
-    def test_integration(self):
+    def test_register(self):
         """
-        This tests that the user can sign up, log in, and sell
+        This tests that the user register as a new user
         """
         # first check that the user does not exsist 
         if(bn.get_user(test_user.email)):
@@ -49,7 +49,16 @@ class integrationTestSignupPost(BaseCase):
         # click enter button
         self.click('input[type="submit"]')
 
-        # check that the user is redirected to the home page
+        # check that the user is redirected to the login page
+        self.assert_element("h1")
+        self.assert_text("Log In", "h1")
+
+    def test_login(self):
+        """
+        This tests that the user can log in
+        """
+        self.open(base_url + '/login')
+        # check that the user is in the login page
         self.assert_element("h1")
         self.assert_text("Log In", "h1")
         # enter users email and password
@@ -59,6 +68,19 @@ class integrationTestSignupPost(BaseCase):
         self.click('input[type="submit"]')
 
         # check we are in the homepage and login is successful
+        self.assert_element("#welcome-header")
+        self.assert_text("Welcome " + test_user.name, "#welcome-header")
+
+
+    def test_integration(self):
+        """
+        This tests that the user can sign up, log in, and sell
+        """
+        # preform the full test
+        self.test_register()
+        self.test_login()
+        
+        # now test to sell a ticket
         self.open(base_url + '/')
         self.assert_element("#sell_form")
 

@@ -11,16 +11,18 @@ from qa327_test.conftest import base_url
 class Registered(BaseCase):
 
     def buy_ticket(self):
+        """ Purchasing a ticket """
         self.type("#buy_form form div #name", "test_ticket")
-        self.type("#buy_form form div #quantity", 9)
+        self.type("#buy_form form div #quantity", "9")
         self.click("#buy_form form div input[type='submit']")
 
     def sell_ticket(self):
+        """ Posting a ticket to the website """
         if(bn.get_ticket("test_ticket")):
             bn.delete_ticket("test_ticket")
         self.type("#sell_form form div #name", "test_ticket")
-        self.type("#sell_form form div #quantity", 10)
-        self.type("#sell_form form div #price", 10)
+        self.type("#sell_form form div #quantity", "10")
+        self.type("#sell_form form div #price", "10")
         self.type("#sell_form form div #date", "20200901")
         self.click("#sell_form form div input[type='submit']")
     

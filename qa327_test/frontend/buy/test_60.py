@@ -8,7 +8,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 """
 This file defines all requirement tests for R6.0.
-R3.0 - A ticket is successfully bought
+R6.0 - A ticket is successfully bought
 """
 # Mock a sample user
 test_user = User(
@@ -82,7 +82,7 @@ class FrontEndBuyR6(BaseCase):
 
         # type the name and quantity wanted into the buy form
         self.type("#buy_form form div #name", test_tickets[0].name) 
-        self.type("#buy_form form div #quantity", (test_tickets[0].quantity - updated_ticket.quantity))
+        self.type("#buy_form form div #quantity", str((test_tickets[0].quantity - updated_ticket.quantity)))
         # click submit button
         self.click('#buy_form form div input[type="submit"]')
 

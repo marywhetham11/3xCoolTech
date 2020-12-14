@@ -68,7 +68,7 @@ class FrontEndBuyR6(BaseCase):
 
         # type the name and quantity wanted into the buy form
         self.type("#buy_form form div #name", "fake_ticket") # error: ticket does not exist
-        self.type("#buy_form form div #quantity", test_tickets[0].quantity) 
+        self.type("#buy_form form div #quantity", str(test_tickets[0].quantity)) 
         # click submit button
         self.click('#buy_form form div input[type="submit"]')
 
@@ -122,7 +122,7 @@ class FrontEndBuyR6(BaseCase):
 
         # type the name and quantity wanted into the buy form
         self.type("#buy_form form div #name", test_tickets[0].name) 
-        self.type("#buy_form form div #quantity", test_tickets[0].quantity + 1) # error: ticket quantity too high
+        self.type("#buy_form form div #quantity", str(test_tickets[0].quantity + 1)) # error: ticket quantity too high
         # click submit button
         self.click('#buy_form form div input[type="submit"]')
 
